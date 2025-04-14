@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cốm Nén</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fefcf7;
+        }
+
+        header {
+            background-color: #f3f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 40px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #003300;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s, border-bottom 0.3s;
+            padding-bottom: 5px;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #00994d;
+            border-bottom: 3px solid #00994d;
+        }
+
+        .banner {
+            background-image: url("assets/banner1.png");
+            background-size: cover;
+            background-position: center;
+            height: 450px;
+            position: relative;
+            color: note;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 60px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .banner h1 {
+            font-size: 84px;
+            color: #003300;
+            background-color: note;
+            padding: 100px 20px;
+            border-radius: 1000px;
+            font-family: 'EB Garamond', cursive;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .banner h1 {
+                font-size: 40px;
+                padding: 15px 20px;
+            }
+        }
+
+        .content {
+            display: flex;
+            padding: 40px;
+            gap: 30px;
+        }
+
+        .section {
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #003300;
+            border-bottom: 2px solid #00994d;
+            padding-bottom: 10px;
+        }
+
+        .product-category {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .product-card h3 {
+            color: #007a3d;
+            margin: 15px 0 10px;
+        }
+
+        .product-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-card li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .channel,
+        .competitor {
+            margin-top: 50px;
+        }
+
+        .channel ul,
+        .competitor ul {
+            padding-left: 20px;
+        }
+
+        .competitor p {
+            margin-top: 10px;
+        }
+
+        .form-cart-wrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-form,
+        .cart-form {
+            background-color: #f3f5e9;
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form {
+            order: 2;
+            margin-left: auto;
+        }
+
+        .cart-form {
+            order: 1;
+            margin-right: auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .contact-form button {
+            background-color: #006633;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .contact-form button:hover {
+            background-color: #004d26;
+        }
+
+        .cart-form ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart-form li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .cart-form h2 {
+            color: #004d26;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .cart-form button {
+            background-color: #00994d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .cart-form button:hover {
+            background-color: #006633;
+        }
+
+        .cart-form select {
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        footer {
+            background-color: #e5efe0;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        footer h3 {
+            color: #003300;
+        }
+
+        footer p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .product-section {
+            display: flex;
+            justify-content: space-around;
+            padding: 40px;
+            background-color: #f3f5e9;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .product {
+            width: 250px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+        .product img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product h3 {
+            margin-top: 15px;
+            color: #004d26;
+        }
+
+        .product p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .product button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            border: none;
+            background-color: #00994d;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .product button:hover {
+            background-color: #006633;
+        }
+
+        .form-cart-wrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-form,
+        .cart-form {
+            background-color: #f3f5e9;
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form {
+            order: 2;
+            margin-left: auto;
+        }
+
+        .cart-form {
+            order: 1;
+            margin-right: auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .contact-form button {
+            background-color: #006633;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .contact-form button:hover {
+            background-color: #004d26;
+        }
+
+        .cart-form ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart-form li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .cart-form h2 {
+            color: #004d26;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .cart-form button {
+            background-color: #00994d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .cart-form button:hover {
+            background-color: #006633;
+        }
+
+        .cart-form .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-form input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .cart-summary {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #e5efe0;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        footer h3 {
+            color: #003300;
+        }
+
+        footer p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        #order-success {
+            margin-top: 15px;
+            color: green;
+            font-weight: bold;
+        }
+
+        .channel {
+            margin-top: 50px;
+            background-color: #e6f4ee;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .channel-box {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .channel-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .channel-box h4 {
+            color: #006633;
+            margin-bottom: 10px;
+        }
+
+        .channel-box ul {
+            list-style: disc;
+            padding-left: 20px;
+            font-size: 14px;
+        }
+
+        .competitor {
+            margin-top: 50px;
+            background-color: #f2f7f3;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .competitor h2 {
+            margin-bottom: 20px;
+        }
+
+        .competitor p {
+            margin-top: 10px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="assets/logo1.png" alt="Logo Cốm Nén" style="height: 100px;">
+        <nav>
+            <a href="https://tauruss2304.github.io/trangchu.cone/" onclick="setActive(this)">TRANG CHỦ</a>
+            <a href="#" onclick="setActive(this)">GIỚI THIỆU</a>
+            <a href="#" onclick="setActive(this)">SẢN PHẨM</a>
+            <a href="#cart" onclick="setActive(this)">GIỎ HÀNG</a>
+            <a href="#contact" onclick="setActive(this)">LIÊN HỆ</a>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <h1>CỐM NÉN </h1>
+    </div>
+
+    <section>
+        <h2> 4 LOẠI HƯƠNG VỊ </h2>
+        <div class="product-category">
+            <div class="product-card">
+                <img src="assets/Screenshot_2025-04-15_011359-removebg-preview.png" alt="Vị Truyền Thống">
+                <h3>Vị Truyền Thống</h3>
+                <ul>
+                    <li style="font-style: italic;">Giữ nguyên vị cốm tươi </li>
+                    <li>Giữ trọn hương vị truyền thông của cốm Việt </li>
+                    <li>Cung cấp năng lượng tự nhiên, dễ tiêu hóa </li>
+                    <li>Gợi nhớ giá trị văn hóa ẩm thực xưa </li>
+                </ul>
+            </div>
+            <div class="product-card">
+                <img src="assets/Screenshot_2025-04-15_011422-removebg-preview.png" alt="Vị Dứa - Sầu Riêng">
+                <h3>Vị Dừa - Sầu Riêng</h3>
+                <ul>
+                    <li style="font-style: italic;">Béo thơm, vị lạ cuốn hút </li>
+                    <li>Kết hợp dừa & sầu riêng giàu vitamin, khoáng chất </li>
+                    <li>Hỗ trợ tiêu hóa & tăng cường nặng lương </li>
+                    <li>Trải nghiệm vị béo đặc trưng, không lẫn vào đâu </li>
+
+                </ul>
+            </div>
+            <div class="product-card">
+                <img src="assets/Screenshot_2025-04-15_011413-removebg-preview.png" alt="Vị Mật Ong Hạnh Nhân">
+                <h3>Vị Mật Ong Hạnh Nhân</h3>
+                <ul>
+                    <li style="font-style: italic;">Ngọt thanh, giàu dưỡng chất </li>
+                    <li>Bổ sung vitamin từ hạnh nhân </li>
+                    <li>Tốt cho tim mạch, hỗ trợ trí nhớ </li>
+                    <li>Vị ngọt dịu tự nhiên từ mật ong </li>
+                </ul>
+            </div>
+            <div class="product-card">
+                <img src="assets/Screenshot_2025-04-15_011432-removebg-preview.png" alt="Vị Socola">
+                <h3>Vị Socola</h3>
+                <ul>
+                    <li style="font-style: italic;">Vị yêu thích của trẻ en & giới trẻ </li>
+                    <li>Hương vị hấp dẫn </li>
+                    <li>Cung cấp năng lượng nhanh </li>
+                    <li>Bổ sung chất chông oxy hóa </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="channel">
+            <h2>KÊNH PHÂN PHỐI</h2>
+            <div class="channel-grid">
+                <div class="channel-box">
+                    <h4>Kênh phân phối trực tiếp</h4>
+                    <ul>
+                        <li>Showroom & đại lý</li>
+                        <li>Quầy hàng trưng bày tại hội chợ</li>
+                    </ul>
+                </div>
+                <div class="channel-box">
+                    <h4>Website chính thức</h4>
+                    <ul>
+                        <li>Bán hàng trực tuyến</li>
+                        <li>Hỗ trợ đặt và thanh toán online</li>
+                    </ul>
+                </div>
+                <div class="channel-box">
+                    <h4>Kênh thương mại điện tử</h4>
+                    <ul>
+                        <li>Shopee</li>
+                        <li>TikTok Shop</li>
+                        <li>Lazada</li>
+                    </ul>
+                </div>
+                <div class="channel-box">
+                    <h4>Mạng xã hội</h4>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                        <li>TikTok</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="competitor">
+            <h2>ĐỐI THỦ CẠNH TRANH</h2>
+            <p>Thị trường cốm truyền thống và các sản phẩm đặc sản từ cốm đang chứng kiến sự cạnh tranh từ nhiều thương
+                hiệu lớn nhỏ. Một số đối thủ nổi bật như Cốm Vòng Hà Nội, Cốm Làng Vòng - mang tính bản địa cao, đã xây
+                dựng được tên tuổi qua nhiều năm.</p>
+            <p>Các sản phẩm sáng tạo như cốm dừa, cốm sấy giòn, cốm mix vị hiện đại đang được nhiều thương hiệu trẻ đẩy
+                mạnh phát triển trên các nền tảng thương mại điện tử và mạng xã hội, tạo nên một môi trường cạnh tranh
+                đa dạng và đổi mới không ngừng.</p>
+        </div>
+    </section>
+    </div>
+    <div class="product-section">
+        <div class="product">
+            <img src="assets/baobi2.png" alt="Cốm truyền thống" style="height: 150px; width: 100px;">
+            <h3>Gói nhỏ kraft 100-150G</h3>
+            <p>Được làm từ nếp non đầu mùa, mang hương vị đậm đà truyền thống.</p>
+            <button onclick="selectProduct('Gói nhỏ kraft 100-150G')">Mua ngay</button>
+        </div>
+        <div class="product">
+            <img src="assets/baobi.jpg" alt="Gói premium 500G" style="height: 150px; width: 100px;">
+            <h3>Gói premium 500G</h3>
+            <p>Kết hợp vị thơm của cốm với sự ngậy béo của dừa non tươi.</p>
+            <button onclick="selectProduct('Gói premium 500G')">Mua ngay</button>
+        </div>
+    </div>
+
+    <div class="form-cart-wrapper">
+        <div class="cart-form" id="cart">
+            <h2>Giỏ hàng</h2>
+            <select id="product-select">
+                <option value="Gói nhỏ kraft 100-150G" data-price="50000">Gói nhỏ kraft 100-150G</option>
+                <option value="Gói premium 500G" data-price="150000 ">Gói premium 500G </option>
+            </select>
+            <button onclick="addToCart()">Thêm sản phẩm</button>
+            <ul id="cart-items"></ul>
+            <div class="cart-summary" id="cart-summary"></div>
+            <button class="btn" onclick="placeOrder()">Đặt hàng</button>
+            <div id="order-success"></div>
+        </div>
+        <div class="contact-form" id="contact">
+            <h2>Liên hệ với chúng tôi</h2>
+            <form action="#" method="POST">
+                <input type="text" name="name" placeholder="Họ tên" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" rows="5" placeholder="Nội dung liên hệ" required></textarea>
+                <button type="submit">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div></div>
+        <div>
+            <h3>LIÊN HỆ</h3>
+            <p>Email: khododanh4pi@gmail.com</p>
+            <p>Địa chỉ:Nguyễn Đức Cảnh, Hoàng Mai,Hà Nội, Việt Nam</p>
+            <p>Điện thoại: 0123 456 789</p>
+        </div>
+    </footer>
+
+    <script>
+        const cart = {};
+        const prices = {
+            "Gói premium 500G": 150000,
+            "Gói nhỏ kraft 100-150G": 50000,
+        };
+        function addToCart() {
+            const select = document.getElementById("product-select");
+            const product = select.value;
+            if (!cart[product]) {
+                cart[product] = 1;
+            } else {
+                cart[product]++;
+            }
+            renderCart();
+        }
+
+        function selectProduct(product) {
+            document.getElementById("product-select").value = product;
+            addToCart();
+            document.getElementById("cart").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateQuantity(product, quantity) {
+            cart[product] = parseInt(quantity);
+            renderCart();
+        }
+
+        function removeItem(product) {
+            delete cart[product];
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById("cart-items");
+            const summary = document.getElementById("cart-summary");
+            cartItems.innerHTML = "";
+            let total = 0;
+            for (let product in cart) {
+                const itemTotal = prices[product] * cart[product];
+                total += itemTotal;
+                const li = document.createElement("li");
+                li.innerHTML = `<div class="cart-item">
+          <span>${product}</span>
+          <input type="number" min="1" value="${cart[product]}" onchange="updateQuantity('${product}', this.value)">
+          <span>${itemTotal.toLocaleString()}₫</span>
+          <button onclick="removeItem('${product}')">Xóa</button>
+        </div>`;
+                cartItems.appendChild(li);
+            }
+            summary.innerText = `Tổng cộng: ${total.toLocaleString()}₫`;
+        }
+
+        function setActive(link) {
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(el => el.classList.remove('active'));
+            link.classList.add('active');
+        }
+        function placeOrder() {
+            const orderSuccess = document.getElementById('order-success');
+            orderSuccess.textContent = 'Đặt hàng thành công';
+        }
+        function placeOrder() {
+            const orderSuccess = document.getElementById('order-success');
+            orderSuccess.textContent = 'Đặt hàng thành công';
+            orderSuccess.style.animation = 'fadeOut 2s ease-out 2s forwards';
+        }
+
+    </script>
+</body>
+
+</html>
