@@ -37,6 +37,15 @@
             border-bottom: 3px solid #00994d;
         }
 
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #004d26;
+        }
+
         .banner {
             background-image: url("assets/banner1.png");
             background-size: cover;
@@ -87,6 +96,44 @@
             .banner h1 {
                 font-size: 40px;
                 padding: 15px 20px;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            .products {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 40px;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                display: none;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            nav.show {
+                display: flex;
             }
         }
 
@@ -492,15 +539,35 @@
             font-size: 15px;
             line-height: 1.6;
         }
+
+        .dropdown {
+            background-color: #f3f5e9;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px 15px;
+            margin: 5px 0;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .dropdown a:hover {
+            background-color: #d4e8da;
+        }
     </style>
 </head>
 
 <body>
     <header>
         <img src="assets/logo1.png" alt="Logo Cốm Nén" style="height: 100px;">
-        <nav>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <nav id="menu" class="dropdown">
             <a href="https://tauruss2304.github.io/trangchu.cone/" onclick="setActive(this)">TRANG CHỦ</a>
-            <a href="#" onclick="setActive(this)">GIỚI THIỆU</a>
+            <a href="https://tauruss2304.github.io/gioithieucoom/" onclick="setActive(this)">GIỚI THIỆU</a>
             <a href="#" onclick="setActive(this)">SẢN PHẨM</a>
             <a href="#cart" onclick="setActive(this)">GIỎ HÀNG</a>
             <a href="#contact" onclick="setActive(this)">LIÊN HỆ</a>
@@ -720,7 +787,10 @@
             orderSuccess.textContent = 'Đặt hàng thành công';
             orderSuccess.style.animation = 'fadeOut 2s ease-out 2s forwards';
         }
-
+        function toggleMenu() {
+            const nav = document.getElementById("menu");
+            nav.classList.toggle("show");
+        }
     </script>
 </body>
 
